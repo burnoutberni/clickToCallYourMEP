@@ -1,5 +1,13 @@
 // Execute JavaScript on page load
 $(function() {
+    $.get('/assets/meps.json', function(data) {
+        for (var i = 0; i < data.meps.length; i++) {
+          $('#meplist').append('<option value="' + data.meps[i].Addresses.Brussels.Phone + '">' + data.meps[i].Name.full + '</option>');
+        }
+    }).fail(function(error) {
+        alert(JSON.stringify(error));
+    });
+
     // Initialize phone number text input plugin
     $('#phoneNumber').intlTelInput({
         responsiveDropdown: true,
@@ -23,7 +31,8 @@ $(function() {
             method: 'POST',
             dataType: 'json',
             data: {
-                phoneNumber: $('#phoneNumber').val()
+                phoneNumber: $('#phoneNumber').val(),
+                mepNumber: $('#mepList').val()
             }
         }).done(function(data) {
             // The JSON sent back from the server will contain a success message

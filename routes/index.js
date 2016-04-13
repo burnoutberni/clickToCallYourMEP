@@ -25,7 +25,7 @@ module.exports = function(app) {
     // Use morgan for HTTP request logging
     app.use(morgan('combined'));
 
-    // Home Page with Click to Call 
+    // Home Page with Click to Call
     app.get('/', function(request, response) {
         response.render('index');
     });
@@ -36,12 +36,13 @@ module.exports = function(app) {
         // Here, we just use the host for the application making the request,
         // but you can hard code it or use something different if need be
         var url = 'http://' + request.headers.host + '/outbound';
-        
+
         // Place an outbound call to the user, using the TwiML instructions
         // from the /outbound route
         client.makeCall({
             to: request.body.phoneNumber,
             from: config.twilioNumber,
+            mep: request.body.mepNumber,
             url: url
         }, function(err, message) {
             console.log(err);
@@ -59,9 +60,12 @@ module.exports = function(app) {
     app.post('/outbound', function(request, response) {
         // We could use twilio.TwimlResponse, but Jade works too - here's how
         // we would render a TwiML (XML) response using Jade
-        response.type('text/xml');
-        response.render('outbound');
+        var resp = new twilio.TwimlResponse();
+        resp.say({voice: 'alice', language: 'de-DE'}, 'Hallo! Du wirst gleich mit ' + request.body.mep + ' verbunden.');
+        resp.dial(request.body.mep);
+
+        response.writeHead(200, {
+          'Content-Type': 'text/xml'
+        });
     });
 };
-
-
