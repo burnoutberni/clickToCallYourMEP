@@ -13,10 +13,10 @@ var client = twilio(config.accountSid, config.authToken);
 var calledMep = {};
 var meps = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public/assets/meps.json'), 'utf8')).meps;
 var mepArray = [];
-for (var i = 0; i < meps.length; i++) {
-  mepArray.push({ "name": meps[i].Name.full, "phone": meps[i].Addresses[config.currentLocation].Phone,  "id": i });
-}
 mepArray.push(config.testCall);
+for (var i = 0; i < meps.length; i++) {
+  mepArray.push({ "name": meps[i].Name.full, "phone": meps[i].Addresses[config.currentLocation].Phone,  "id": mepArray.length });
+}
 
 // Configure application routes
 module.exports = function(app) {
