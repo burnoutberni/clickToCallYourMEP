@@ -18,6 +18,7 @@ for (var i = 0; i < meps.length; i++) {
     mepArray.push({ "name": meps[i].Name.full,
                     "phone": meps[i].Addresses[config.currentLocation].Phone,
                     "id": mepArray.length,
+                    "country": meps[i].Constituencies[0].country,
                     "party": meps[i].Constituencies[0].party,
                     "group": meps[i].Groups[0].groupid,
                     "photo": meps[i].Photo});
@@ -47,9 +48,33 @@ module.exports = function(app) {
 
     app.get('/meps', function(request, response) {
         response.writeHead(200, {
-          'Content-Type': 'text/json'
+            'Content-Type': 'text/json'
         });
-        response.end(JSON.stringify(mepArray));
+
+        var filteredMepArray = mepArray.slice();
+
+        if (request.query.country) {
+            var country = request.query.country;
+        }
+
+        if (request.query.group) {
+            var group = request.query.group;
+        }
+
+        if (request.query.party) {
+            var party = request.query.party;
+        }
+
+        for (var i = filteredMepArray.length - 1; i >= 0; i--) {
+            if ((country && filteredMepArray[i].country.toLowerCase() !== country.toLowerCase()) ||
+                (group && filteredMepArray[i].group.toLowerCase() !== group.toLowerCase()) ||
+                (party && filteredMepArray[i].party.toLowerCase() !== party.toLowerCase())) {
+                filteredMepArray.splice(i, 1);
+            }
+        }
+
+
+        response.end(JSON.stringify(filteredMepArray));
     });
 
     // Handle an AJAX POST request to place an outbound call

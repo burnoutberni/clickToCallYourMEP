@@ -1,20 +1,20 @@
 function renderInfo(mep) {
   $('#mepphoto').attr("src", mep.photo || "http://www.europarl.europa.eu/mepphoto/undefined.jpg");
   $('#mepname').html("<h2>" + mep.name + "</h2>");
+  $('#mepcountry').html("<p>" + mep.country + "</p>");
   $('#mepparty').html("<p>" + (mep.party || "") + "</p>");
   $('#mepgroup').html("<p>" + (mep.group || "") + "</p>");
   $('#mepphone').html("<p>" + mep.phone || "" + "</p>");
 };
 
-// Execute JavaScript on page load
 $(function() {
     var meplist;
-    $.get('/meps', function(data) {
+    $.get('/meps' + window.location.search, function(data) {
         meplist = data;
         for (var i = 0; i < data.length; i++) {
           $('#meplist').append('<option value="' + meplist[i].id + '">' + meplist[i].name + '</option>');
         }
-        renderInfo(meplist[$('#meplist').val()]);
+        renderInfo($.grep(meplist, function(e){ return e.id == $('#meplist').val()})[0]);
     }).fail(function(error) {
         alert(JSON.stringify(error));
     });
@@ -30,7 +30,8 @@ $(function() {
     });
 
     $('#meplist').on('change', function(e) {
-        renderInfo(meplist[$(this).val()]);
+        var selectedMepId = $(this).val();
+        renderInfo($.grep(meplist, function(e){ return e.id == selectedMepId })[0]);
     });
 
     // Intercept form submission and submit the form with ajax
