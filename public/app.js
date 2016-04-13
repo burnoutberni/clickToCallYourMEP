@@ -32,8 +32,8 @@ $(function() {
             dataType: 'json',
             data: {
                 phoneNumber: $('#phoneNumber').val(),
-                mepNumber: $('#mepList').val(),
-                mepName: $('#mepList').html()
+                mepNumber: $('#meplist').val(),
+                mepName: $('#meplist option:selected').text()
             }
         }).done(function(data) {
             // The JSON sent back from the server will contain a success message
