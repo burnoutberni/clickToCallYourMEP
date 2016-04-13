@@ -7,6 +7,7 @@ var config = require("../config");
 
 // Create a Twilio REST API client for authenticated requests to Twilio
 var client = twilio(config.accountSid, config.authToken);
+var calledMep = {};
 
 // Configure application routes
 module.exports = function(app) {
@@ -35,14 +36,15 @@ module.exports = function(app) {
         // This should be the publicly accessible URL for your application
         // Here, we just use the host for the application making the request,
         // but you can hard code it or use something different if need be
-        var url = 'http://' + request.headers.host + '/outbound?mepNumber=' + request.body.mepNumber + '&mepName=' + request.body.mepName;
+        var url = 'http://' + request.headers.host + '/outbound';
+        calledMep.name = request.body.mepName;
+        calledMep.number = request.body.mepNumber;
 
         // Place an outbound call to the user, using the TwiML instructions
         // from the /outbound route
         client.makeCall({
             to: request.body.phoneNumber,
             from: config.twilioNumber,
-            //mep: request.body.mepNumber,
             url: url
         }, function(err, message) {
             console.log(err);
@@ -62,8 +64,8 @@ module.exports = function(app) {
         // we would render a TwiML (XML) response using Jade
         console.log(request, response);
         var resp = new twilio.TwimlResponse();
-        resp.say({voice: 'alice', language: 'de-DE'}, 'Hallo! Du wirst gleich mit ' + request.query.mepName + ' verbunden.');
-        resp.dial(request.query.mepNumber);
+        resp.say({voice: 'alice', language: 'de-DE'}, 'Hallo! Du wirst gleich mit ' + calledMep.name + ' verbunden.');
+        resp.dial(calledMep.number);
 
         response.writeHead(200, {
           'Content-Type': 'text/xml'
