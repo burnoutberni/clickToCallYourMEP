@@ -18,6 +18,7 @@ html(lang="en")
         Call an MEP now! Just enter your phone number and you will receive a call and get connected to an MEP of your choice.
 
       select#meplist
+        option(value='+43720002323') Metalab
 
       hr
 
@@ -26,9 +27,8 @@ html(lang="en")
         .col-md-12
           form(id='contactForm', role='form')
             .form-group
-              input.form-control(type='text', id='phoneNumber',
-                placeholder='+43 1 23456789')
-            button(type='submit', class='btn btn-default') Contact Metalab
+              input.form-control(type='text', id='phoneNumber')
+            button(type='submit', class='btn btn-default') Contact MEP
 
     // Include page dependencies
     script(src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')

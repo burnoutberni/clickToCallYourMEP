@@ -13,7 +13,6 @@ $(function() {
         responsiveDropdown: true,
         autoFormat: true,
         utilsScript: '/vendor/intl-phone/libphonenumber/build/utils.js',
-        initialCountry: "at",
         onlyCountries: ["at", "be", "bg", "hr", "cz", "dk", "ee", "fi", "fr",
         "de", "gr", "hu", "ie", "it", "lv", "lt", "mt", "nl", "pl", "pt", "ro",
         "sk", "si", "es", "se", "gb"]
