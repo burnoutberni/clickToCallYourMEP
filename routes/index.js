@@ -66,9 +66,9 @@ module.exports = function(app) {
         }
 
         for (var i = filteredMepArray.length - 1; i >= 0; i--) {
-            if ((country && filteredMepArray[i].country.toLowerCase() !== country.toLowerCase()) ||
-                (group && filteredMepArray[i].group.toLowerCase() !== group.toLowerCase()) ||
-                (party && filteredMepArray[i].party.toLowerCase() !== party.toLowerCase())) {
+            if ((country && encodeURIComponent(filteredMepArray[i].country.toLowerCase()) !== encodeURIComponent(country.toLowerCase())) ||
+                (group && encodeURIComponent(filteredMepArray[i].group.toLowerCase()) !== encodeURIComponent(group.toLowerCase())) ||
+                (party && encodeURIComponent(filteredMepArray[i].party.toLowerCase()) !== encodeURIComponent(party.toLowerCase()))) {
                 filteredMepArray.splice(i, 1);
             }
         }
