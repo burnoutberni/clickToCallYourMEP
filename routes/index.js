@@ -15,7 +15,12 @@ var meps = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public/assets/me
 var mepArray = [];
 mepArray.push(config.testCall);
 for (var i = 0; i < meps.length; i++) {
-  mepArray.push({ "name": meps[i].Name.full, "phone": meps[i].Addresses[config.currentLocation].Phone,  "id": mepArray.length });
+    mepArray.push({ "name": meps[i].Name.full,
+                    "phone": meps[i].Addresses[config.currentLocation].Phone,
+                    "id": mepArray.length,
+                    "party": meps[i].Constituencies[0].party,
+                    "group": meps[i].Groups[0].groupid,
+                    "photo": meps[i].Photo});
 }
 
 // Configure application routes

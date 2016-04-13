@@ -1,9 +1,20 @@
+function renderInfo(mep) {
+  $('#mepphoto').attr("src", mep.photo || "http://www.europarl.europa.eu/mepphoto/undefined.jpg");
+  $('#mepname').html("<h2>" + mep.name + "</h2>");
+  $('#mepparty').html("<p>" + (mep.party || "") + "</p>");
+  $('#mepgroup').html("<p>" + (mep.group || "") + "</p>");
+  $('#mepphone').html("<p>" + mep.phone || "" + "</p>");
+};
+
 // Execute JavaScript on page load
 $(function() {
+    var meplist;
     $.get('/meps', function(data) {
+        meplist = data;
         for (var i = 0; i < data.length; i++) {
-          $('#meplist').append('<option value="' + data[i].id + '">' + data[i].name + '</option>');
+          $('#meplist').append('<option value="' + meplist[i].id + '">' + meplist[i].name + '</option>');
         }
+        renderInfo(meplist[$('#meplist').val()]);
     }).fail(function(error) {
         alert(JSON.stringify(error));
     });
@@ -16,6 +27,10 @@ $(function() {
         onlyCountries: ["at", "be", "bg", "hr", "cz", "dk", "ee", "fi", "fr",
         "de", "gr", "hu", "ie", "it", "lv", "lt", "mt", "nl", "pl", "pt", "ro",
         "sk", "si", "es", "se", "gb"]
+    });
+
+    $('#meplist').on('change', function(e) {
+        renderInfo(meplist[$(this).val()]);
     });
 
     // Intercept form submission and submit the form with ajax
