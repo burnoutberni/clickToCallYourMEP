@@ -42,7 +42,7 @@ module.exports = function(app) {
         client.makeCall({
             to: request.body.phoneNumber,
             from: config.twilioNumber,
-            mep: request.body.mepNumber,
+            //mep: request.body.mepNumber,
             url: url
         }, function(err, message) {
             console.log(err);
@@ -60,7 +60,7 @@ module.exports = function(app) {
     app.post('/outbound', function(request, response) {
         // We could use twilio.TwimlResponse, but Jade works too - here's how
         // we would render a TwiML (XML) response using Jade
-        console.log(request);
+        console.log(request, response);
         var resp = new twilio.TwimlResponse();
         resp.say({voice: 'alice', language: 'de-DE'}, 'Hallo! Du wirst gleich mit dem Metalab verbunden.');
         resp.dial('+43720002323');
