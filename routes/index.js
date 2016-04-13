@@ -60,12 +60,14 @@ module.exports = function(app) {
     app.post('/outbound', function(request, response) {
         // We could use twilio.TwimlResponse, but Jade works too - here's how
         // we would render a TwiML (XML) response using Jade
+        console.log(request);
         var resp = new twilio.TwimlResponse();
-        resp.say({voice: 'alice', language: 'de-DE'}, 'Hallo! Du wirst gleich mit ' + request.body.mep + ' verbunden.');
-        resp.dial(request.body.mep);
+        resp.say({voice: 'alice', language: 'de-DE'}, 'Hallo! Du wirst gleich mit dem Metalab verbunden.');
+        resp.dial('+43720002323');
 
         response.writeHead(200, {
           'Content-Type': 'text/xml'
         });
+        response.end(resp.toString());
     });
 };
