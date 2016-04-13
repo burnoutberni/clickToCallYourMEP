@@ -35,7 +35,7 @@ module.exports = function(app) {
         // This should be the publicly accessible URL for your application
         // Here, we just use the host for the application making the request,
         // but you can hard code it or use something different if need be
-        var url = 'http://' + request.headers.host + '/outbound';
+        var url = 'http://' + request.headers.host + '/outbound?mepNumber=' + request.body.mepNumber + '&mepName=' + request.body.mepName;
 
         // Place an outbound call to the user, using the TwiML instructions
         // from the /outbound route
@@ -62,8 +62,8 @@ module.exports = function(app) {
         // we would render a TwiML (XML) response using Jade
         console.log(request, response);
         var resp = new twilio.TwimlResponse();
-        resp.say({voice: 'alice', language: 'de-DE'}, 'Hallo! Du wirst gleich mit dem Metalab verbunden.');
-        resp.dial('+43720002323');
+        resp.say({voice: 'alice', language: 'de-DE'}, 'Hallo! Du wirst gleich mit ' + request.query.mepName + ' verbunden.');
+        resp.dial(request.query.mepNumber);
 
         response.writeHead(200, {
           'Content-Type': 'text/xml'
