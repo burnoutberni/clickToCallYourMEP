@@ -2,9 +2,9 @@ function renderInfo(mep) {
   $('#mepphoto').attr("src", mep.photo || "http://www.europarl.europa.eu/mepphoto/undefined.jpg");
   $('#mepname').html("<h2>" + mep.name + "</h2>");
   $('#mepcountry').html("<p>" + mep.country + "</p>");
-  $('#mepparty').html("<p>" + (mep.party || "") + "</p>");
-  $('#mepgroup').html("<p>" + (mep.group || "") + "</p>");
-  $('#mepphone').html("<p>" + mep.phone || "" + "</p>");
+  $('#mepparty').html("<p>" + mep.party + "</p>");
+  $('#mepgroup').html("<p>" + mep.group + "</p>");
+  $('#mepphone').html("<p>" + mep.phone + "</p>");
 };
 
 $(function() {
