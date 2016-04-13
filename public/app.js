@@ -1,8 +1,8 @@
 // Execute JavaScript on page load
 $(function() {
-    $.get('/assets/meps.json', function(data) {
-        for (var i = 0; i < data.meps.length; i++) {
-          $('#meplist').append('<option value="' + data.meps[i].Addresses.Brussels.Phone + '">' + data.meps[i].Name.full + '</option>');
+    $.get('/meps', function(data) {
+        for (var i = 0; i < data.length; i++) {
+          $('#meplist').append('<option value="' + data[i].id + '">' + data[i].name + '</option>');
         }
     }).fail(function(error) {
         alert(JSON.stringify(error));
@@ -31,8 +31,7 @@ $(function() {
             dataType: 'json',
             data: {
                 phoneNumber: $('#phoneNumber').val(),
-                mepNumber: $('#meplist').val(),
-                mepName: $('#meplist option:selected').text()
+                mepId: $('#meplist').val()
             }
         }).done(function(data) {
             // The JSON sent back from the server will contain a success message

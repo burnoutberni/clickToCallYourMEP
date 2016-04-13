@@ -4,10 +4,19 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var twilio = require('twilio');
 var config = require("../config");
+var fs = require("fs"),
+    json;
 
 // Create a Twilio REST API client for authenticated requests to Twilio
 var client = twilio(config.accountSid, config.authToken);
+
 var calledMep = {};
+var meps = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public/assets/meps.json'), 'utf8')).meps;
+var mepArray = [];
+for (var i = 0; i < meps.length; i++) {
+  mepArray.push({ "name": meps[i].Name.full, "phone": meps[i].Addresses[config.currentLocation].Phone,  "id": i });
+}
+mepArray.push(config.testCall);
 
 // Configure application routes
 module.exports = function(app) {
@@ -31,14 +40,20 @@ module.exports = function(app) {
         response.render('index');
     });
 
+    app.get('/meps', function(request, response) {
+        response.writeHead(200, {
+          'Content-Type': 'text/json'
+        });
+        response.end(JSON.stringify(mepArray));
+    });
+
     // Handle an AJAX POST request to place an outbound call
     app.post('/call', function(request, response) {
         // This should be the publicly accessible URL for your application
         // Here, we just use the host for the application making the request,
         // but you can hard code it or use something different if need be
         var url = 'http://' + request.headers.host + '/outbound';
-        calledMep.name = request.body.mepName;
-        calledMep.number = request.body.mepNumber;
+        calledMep = mepArray[request.body.mepId];
 
         // Place an outbound call to the user, using the TwiML instructions
         // from the /outbound route
@@ -64,7 +79,7 @@ module.exports = function(app) {
         // we would render a TwiML (XML) response using Jade
         var resp = new twilio.TwimlResponse();
         resp.say({voice: 'alice', language: 'de-DE'}, 'Hallo! Du wirst gleich mit ' + calledMep.name + ' verbunden.');
-        resp.dial(calledMep.number);
+        resp.dial(calledMep.phone);
 
         response.writeHead(200, {
           'Content-Type': 'text/xml'
