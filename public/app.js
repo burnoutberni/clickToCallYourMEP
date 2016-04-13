@@ -14,6 +14,9 @@ $(function() {
         for (var i = 0; i < data.length; i++) {
           $('#meplist').append('<option value="' + meplist[i].id + '">' + meplist[i].name + '</option>');
         }
+        if (window.location.search.toLowerCase().search("random") !== -1) {
+          $('#meplist option:nth-child(' + Math.floor(Math.random()*data.length) + ')').attr("selected", "selected");
+        }
         renderInfo($.grep(meplist, function(e){ return e.id == $('#meplist').val()})[0]);
     }).fail(function(error) {
         alert(JSON.stringify(error));
