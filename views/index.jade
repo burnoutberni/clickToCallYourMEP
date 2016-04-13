@@ -1,25 +1,21 @@
 doctype html
 html(lang="en")
   head
-    title Click To Call Tutorial
+    title Click To Call Metalab
 
     // We use Twitter Bootstrap as the default styling for our page
-    link(rel='stylesheet', 
+    link(rel='stylesheet',
       href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css')
-    link(rel='stylesheet', 
+    link(rel='stylesheet',
       href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css')
 
     // Include CSS for our third-party telephone input jQuery plugin
     link(rel='stylesheet', href='/vendor/intl-phone/css/intlTelInput.css')
   body
     .container
-      h1 Click To Call
+      h1 Click To Call Metalab
       p.
-        Click To Call converts your website's users into engaged customers by 
-        creating an easy way for your customers to contact your sales and 
-        support teams right on your website.
-
-      p Here's an example of how it's done!
+        Call Metalab now! Just enter your phone number and you will receive a call and get connected to Metalab.
 
       hr
 
@@ -28,15 +24,9 @@ html(lang="en")
         .col-md-12
           form(id='contactForm', role='form')
             .form-group
-              h3 Call Sales
-              p.help-block.
-                Are you interested in impressing your friends and confounding 
-                your enemies? Enter your phone number below, and our team will 
-                contact you right away.
-            .form-group
-              input.form-control(type='text', id='phoneNumber', 
-                placeholder='(651) 555-7889')
-            button(type='submit', class='btn btn-default') Contact Sales
+              input.form-control(type='text', id='phoneNumber',
+                placeholder='+43 1 23456789')
+            button(type='submit', class='btn btn-default') Contact Metalab
 
     // Include page dependencies
     script(src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
