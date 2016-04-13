@@ -46,24 +46,32 @@ module.exports = function(app) {
         response.render('index');
     });
 
-    app.get('/meps', function(request, response) {
+    app.get('/mep', function(request, response) {
+        var filteredMepArray = mepArray.slice();
+
+        if (request.query.country) { var country = request.query.country; }
+        if (request.query.group) { var group = request.query.group; }
+        if (request.query.party) { var party = request.query.party; }
+
+        for (var i = filteredMepArray.length - 1; i >= 0; i--) {
+            if ((country && encodeURIComponent(filteredMepArray[i].country.toLowerCase()) !== encodeURIComponent(country.toLowerCase())) ||
+                (group && encodeURIComponent(filteredMepArray[i].group.toLowerCase()) !== encodeURIComponent(group.toLowerCase())) ||
+                (party && encodeURIComponent(filteredMepArray[i].party.toLowerCase()) !== encodeURIComponent(party.toLowerCase()))) {
+                filteredMepArray.splice(i, 1);
+            }
+        }
         response.writeHead(200, {
             'Content-Type': 'text/json'
         });
+        response.end(JSON.stringify(filteredMepArray[Math.floor(Math.random()*filteredMepArray.length)]));
+    });
 
+    app.get('/meps', function(request, response) {
         var filteredMepArray = mepArray.slice();
 
-        if (request.query.country) {
-            var country = request.query.country;
-        }
-
-        if (request.query.group) {
-            var group = request.query.group;
-        }
-
-        if (request.query.party) {
-            var party = request.query.party;
-        }
+        if (request.query.country) { var country = request.query.country; }
+        if (request.query.group) { var group = request.query.group; }
+        if (request.query.party) { var party = request.query.party; }
 
         for (var i = filteredMepArray.length - 1; i >= 0; i--) {
             if ((country && encodeURIComponent(filteredMepArray[i].country.toLowerCase()) !== encodeURIComponent(country.toLowerCase())) ||
@@ -73,7 +81,9 @@ module.exports = function(app) {
             }
         }
 
-
+        response.writeHead(200, {
+            'Content-Type': 'text/json'
+        });
         response.end(JSON.stringify(filteredMepArray));
     });
 
