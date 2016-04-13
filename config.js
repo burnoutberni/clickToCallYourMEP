@@ -14,11 +14,6 @@ module.exports = {
     // The port your web application will run on
     port: process.env.PORT || 3000,
 
-    currentLocation: "Brussels",
-    testCall: { "name": "Metalab",
-                "phone": "+43720002323",
-                "id": 0,
-                "country": "Austria",
-                "group": "None",
-                "party": "None" }
+    currentLocation: process.env.CURRENT_LOCATION,
+    testCall: {} // { "name": "Metalab", "phone": "+43720002323", "id": 0, "country": "Austria", "group": "None", "party": "None" }
 };

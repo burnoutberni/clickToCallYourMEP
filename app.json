@@ -26,6 +26,10 @@
     "TWILIO_NUMBER": {
       "description": "The Twilio phone number you are using for this app. You can get one here: https://www.twilio.com/user/account/phone-numbers/incoming",
       "value": "+15005550006"
+    },
+    "CURRENT_LOCATION": {
+      "description": "Call to Brussels or to Strasbourg?",
+      "value": "Brussels"
     }
   }
 }
