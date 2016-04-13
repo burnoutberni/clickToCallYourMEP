@@ -15,5 +15,5 @@ module.exports = {
     port: process.env.PORT || 3000,
 
     currentLocation: process.env.CURRENT_LOCATION,
-    testCall: {} // { "name": "Metalab", "phone": "+43720002323", "id": 0, "country": "Austria", "group": "None", "party": "None" }
+    // testCall: { "name": "Metalab", "phone": "+43720002323", "id": 0, "country": "Austria", "group": "None", "party": "None" }
 };
