@@ -1,20 +1,24 @@
 {
-  "name": "clicktocall-node",
-  "version": "1.0.0",
-  "description": "An example of implementing click to call functionality in a Node.js application",
+  "name": "clickToCallYourMEP",
+  "version": "0.0.1",
+  "description": "Little calling helper for online campaigns targeted at MEPs",
   "main": "app.js",
   "scripts": {
     "test": "node test | faucet",
     "start": "node app.js"
   },
   "keywords": [
-    "twilio",
     "click",
     "to",
-    "call"
+    "call",
+    "MEP",
+    "EP",
+    "European",
+    "Parliament",
+    "campaign"
   ],
-  "author": "Kevin Whinnery",
-  "license": "MIT",
+  "author": "Bernhard Hayden <hello@nini.su>",
+  "license": "AGPL-3.0",
   "engines" : { "node" : ">=4.1.0 <5.5.0" },
   "dependencies": {
     "body-parser": "^1.6.5",

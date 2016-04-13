@@ -1,22 +1,19 @@
 {
-  "name": "Click To Call: Twilio & Node",
-  "description": "An example of implementing click to call functionality in a Node.js application",
+  "name": "Click To Call Your MEP",
+  "description": "Little calling helper for online campaigns targeted at MEPs",
   "keywords": [
-    "node.js",
-    "API",
-    "twilio",
-    "expressjs",
-    "Express",
-    "Tutorial",
-    "Telephone API",
-    "Voice API",
-    "REST API",
-    "Demo"
+    "click",
+    "to",
+    "call",
+    "MEP",
+    "EP",
+    "European",
+    "Parliament",
+    "campaign"
   ],
-  "website": "https://twilio.com/docs/howto/click-to-call-walkthrough",
-  "repository": "https://github.com/TwilioDevEd/clicktocall-node",
-  "logo": "https://s3-us-west-2.amazonaws.com/deved/twilio-logo.png",
-  "success_url": "/landing.html",
+  "website": "https://github.com/burnoutberni/clickToCallYourMEP",
+  "repository": "https://github.com/burnoutberni/clickToCallYourMEP",
+  "success_url": "/",
   "env": {
     "TWILIO_ACCOUNT_SID": {
       "description": "Your Twilio account secret ID, you can find at: https://www.twilio.com/user/account",
