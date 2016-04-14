@@ -15,7 +15,7 @@ Declare the following environment variables:
 
 ## Usage
 
-  node app.js
+    node app.js
 
 This starts a local webserver on port 3000.
 
