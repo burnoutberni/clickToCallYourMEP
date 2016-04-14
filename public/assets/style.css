@@ -1,0 +1,21 @@
+body { font-family: 'Nimbus Sans L', 'Helvetica Neue', Helvetica, sans-serif; }
+hr { border: solid 1px #eee; }
+h1, h2, p { margin: 5px; }
+.clear { clear: both; }
+
+#mepphoto  {
+  float: left;
+  margin-right: 10px;
+}
+
+#phoneNumber {
+  margin-right: 20px;
+}
+
+#phoneButton {
+  border: 1px solid #4cae4c;
+  background-color: #5cb85c;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 4px;
+}

@@ -1,4 +1,5 @@
 function renderInfo(mep) {
+  $('#mepphoto').attr("src", "");
   $('#mepphoto').attr("src", mep.photo || "http://www.europarl.europa.eu/mepphoto/undefined.jpg");
   $('#mepname').html("<h2>" + mep.name + "</h2>");
   $('#mepcountry').html("<p>" + mep.country + "</p>");
