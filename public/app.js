@@ -1,6 +1,6 @@
 function renderInfo(mep) {
-  $('#mepphoto').attr("src", "");
-  $('#mepphoto').attr("src", mep.photo || "http://www.europarl.europa.eu/mepphoto/undefined.jpg");
+  $('#mepphoto').css("background-image", "none");
+  $('#mepphoto').css("background-image", "url(" + mep.photo || "http://www.europarl.europa.eu/mepphoto/undefined.jpg" + ")");
   $('#mepname').html("<h2>" + mep.name + "</h2>");
   $('#mepcountry').html("<p>" + mep.country + "</p>");
   $('#mepparty').html("<p>" + mep.party + "</p>");

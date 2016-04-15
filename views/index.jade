@@ -3,10 +3,8 @@ html(lang="en")
   head
     title Click To Call Your MEP
 
-    link(rel='stylesheet',
-      href='/assets/style.css')
-
-    // Include CSS for our third-party telephone input jQuery plugin
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='/assets/style.css')
     link(rel='stylesheet', href='/vendor/intl-phone/css/intlTelInput.css')
   body
     .container
@@ -14,11 +12,10 @@ html(lang="en")
       p.
         Call an MEP now! Just enter your phone number and you will receive a call and get connected to an MEP of your choice.
 
-      select#meplist
-
-      #mepinfos
-        img#mepphoto
-        h2#mepname
+      #mepbox
+        span#dropdown-arrow ⌄
+        select#meplist
+        div#mepphoto
         p#mepcountry
         p#mepparty
         p#mepgroup
@@ -26,12 +23,8 @@ html(lang="en")
         form(id='contactForm', role='form')
           input(type='text', id='phoneNumber', placeholder='Enter your number…')
           button(type='submit', id='phoneButton') …and call your MEP free of charge!
-          br.clear
 
-      hr
-
-      p.
-        Made with <3 by <a href="http://nini.su" target="_blank">Bernhard Hayden</a>. Fork it on <a href="https://github.com/burnoutberni/clickToCallYourMEP" target="_blank">Github</a>.
+      p#about Made with <3 by <a href="http://nini.su" target="_blank">Bernhard Hayden</a>. Fork it on <a href="https://github.com/burnoutberni/clickToCallYourMEP" target="_blank">Github</a>.
 
     // Include page dependencies
     script(src='/vendor/jquery/jquery-1.11.1.min.js')

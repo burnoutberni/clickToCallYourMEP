@@ -1,11 +1,46 @@
 body { font-family: 'Nimbus Sans L', 'Helvetica Neue', Helvetica, sans-serif; }
 hr { border: solid 1px #eee; }
-h1, h2, p { margin: 5px; }
-.clear { clear: both; }
+h1, h2, p, form { margin: 5px 0; }
+
+#mepbox {
+  max-width: 750px;
+  background-color: #eee;
+  overflow: hidden;
+  border-radius: 4px;
+  padding-left: 20px;
+  position: relative;
+}
 
 #mepphoto  {
-  float: left;
+  float: right;
   margin-right: 10px;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  border: 5px solid #ddd;
+  background: center no-repeat;
+}
+
+#meplist {
+  background: none;
+  border: none;
+  -webkit-appearance:none;
+  -moz-appearance: none;
+  appearance:none;
+  font-size: 32px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: -20px;
+  padding: 10px;
+  width: 750px;
+}
+
+#dropdown-arrow {
+  pointer-events: none;
+  position: absolute;
+  right: 10px;
+  top: 0;
+  font-size: 32px;
 }
 
 #phoneNumber {
@@ -18,4 +53,11 @@ h1, h2, p { margin: 5px; }
   color: white;
   padding: 10px 16px;
   border-radius: 4px;
+  margin: 20px 0;
+}
+
+#about, #about > * {
+  font-size: 12px;
+  color: #aaa;
+  clear: both;
 }
