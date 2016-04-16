@@ -7,6 +7,10 @@ var config = require("../config");
 var fs = require("fs"),
     json;
 
+String.prototype.capitalizeFirstLetter = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
 // Create a Twilio REST API client for authenticated requests to Twilio
 var client = twilio(config.accountSid, config.authToken);
 
@@ -31,7 +35,7 @@ for (var i = 0; i < meps.length; i++) {
             }
         }
     }
-    mepArray.push({ "sur": mep.Name.sur + " " + mep.Name.family,
+    mepArray.push({ "name": mep.Name.sur + " " + mep.Name.familylc.capitalizeFirstLetter(),
                     "phone": mep.Addresses[config.currentLocation].Phone,
                     "id": mepArray.length,
                     "country": mep.Constituencies[0].country,
