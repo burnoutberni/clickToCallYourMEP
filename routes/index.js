@@ -31,7 +31,7 @@ for (var i = 0; i < meps.length; i++) {
             }
         }
     }
-    mepArray.push({ "name": mep.Name.full,
+    mepArray.push({ "sur": mep.Name.sur + " " + mep.Name.family,
                     "phone": mep.Addresses[config.currentLocation].Phone,
                     "id": mepArray.length,
                     "country": mep.Constituencies[0].country,
