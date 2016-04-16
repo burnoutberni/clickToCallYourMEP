@@ -1,6 +1,6 @@
 # Click to Call Your MEP [![Build Status](https://travis-ci.org/burnoutberni/clickToCallYourMEP.svg?branch=master)](https://travis-ci.org/burnoutberni/clickToCallYourMEP)
 
-Little calling helper for online campaigns targeted at MEPs inspired by [PiPhone](http://piphone.lqdn.fr/) and based on [clicktocall-node](https://github.com/TwilioDevEd/clicktocall-node). 
+Little calling helper for online campaigns targeted at MEPs inspired by [PiPhone](http://piphone.lqdn.fr/) and based on [clicktocall-node](https://github.com/TwilioDevEd/clicktocall-node).
 
 v0.0.1 – Use with caution!
 
@@ -41,9 +41,11 @@ Post the following attributes to start a call:
 ### ```?foo=bar``` – Filter MEPs
 The following filters can be used and freely combined:
 
-    ?country=Finland
-    ?group=GUE%2FNGL
-    ?party=%C3%96sterreichische%20Volkspartei
+    ?country=Finland                            // English full country name
+    ?group=GUE%2FNGL                            // French group short forms
+    ?party=%C3%96sterreichische%20Volkspartei   // Country-specific full party name
+    ?committee=JURI                             // Short form except for special committees, for these English full committee name
+    ?committee=EMPL&country=Belgium
 
 ## Licensing
 
