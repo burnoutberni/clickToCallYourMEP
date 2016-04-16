@@ -1,8 +1,7 @@
 # Click to Call Your MEP [![Build Status](https://travis-ci.org/burnoutberni/clickToCallYourMEP.svg?branch=master)](https://travis-ci.org/burnoutberni/clickToCallYourMEP)
 
-Little calling helper for online campaigns targeted at MEPs inspired by 
-[PiPhone](http://piphone.lqdn.fr/) and based on 
-[clicktocall-node](https://github.com/TwilioDevEd/clicktocall-node). 
+Little calling helper for online campaigns targeted at MEPs inspired by [PiPhone](http://piphone.lqdn.fr/) and based on [clicktocall-node](https://github.com/TwilioDevEd/clicktocall-node). 
+
 v0.0.1 – Use with caution!
 
 ## Installation
