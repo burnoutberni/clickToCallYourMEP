@@ -15,13 +15,30 @@ var meps = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public/assets/me
 var mepArray = [];
 if (config.testCall) { mepArray.push(config.testCall); }
 for (var i = 0; i < meps.length; i++) {
-    mepArray.push({ "name": meps[i].Name.full,
-                    "phone": meps[i].Addresses[config.currentLocation].Phone,
+    var mep = meps[i];
+    var mepCommittees = [];
+    for (var j = 0; j < mep.Committees.length; j++) {
+        var committee = mep.Committees[j];
+        var start = new Date(committee.start);
+        var end = new Date(committee.end);
+        var now = new Date();
+
+        if (start < now && end > now) {
+            if (committee.abbr === null) {
+              mepCommittees.push(committee.Organization);
+            } else {
+              mepCommittees.push(committee.abbr);
+            }
+        }
+    }
+    mepArray.push({ "name": mep.Name.full,
+                    "phone": mep.Addresses[config.currentLocation].Phone,
                     "id": mepArray.length,
-                    "country": meps[i].Constituencies[0].country,
-                    "party": meps[i].Constituencies[0].party,
-                    "group": meps[i].Groups[0].groupid,
-                    "photo": meps[i].Photo});
+                    "country": mep.Constituencies[0].country,
+                    "party": mep.Constituencies[0].party,
+                    "group": mep.Groups[0].groupid,
+                    "photo": mep.Photo,
+                    "committees": mepCommittees});
 }
 
 // Configure application routes
@@ -52,11 +69,15 @@ module.exports = function(app) {
         if (request.query.country) { var country = request.query.country; }
         if (request.query.group) { var group = request.query.group; }
         if (request.query.party) { var party = request.query.party; }
+        if (request.query.committee) { var committee = request.query.committee; }
 
         for (var i = filteredMepArray.length - 1; i >= 0; i--) {
-            if ((country && encodeURIComponent(filteredMepArray[i].country.toLowerCase()) !== encodeURIComponent(country.toLowerCase())) ||
-                (group && encodeURIComponent(filteredMepArray[i].group.toLowerCase()) !== encodeURIComponent(group.toLowerCase())) ||
-                (party && encodeURIComponent(filteredMepArray[i].party.toLowerCase()) !== encodeURIComponent(party.toLowerCase()))) {
+            var filteredMep = filteredMepArray[i];
+            if ((country && encodeURIComponent(filteredMep.country.toLowerCase()) !== encodeURIComponent(country.toLowerCase())) ||
+                (group && encodeURIComponent(filteredMep.group.toLowerCase()) !== encodeURIComponent(group.toLowerCase())) ||
+                (party && encodeURIComponent(filteredMep.party.toLowerCase()) !== encodeURIComponent(party.toLowerCase())) ||
+                (committee && encodeURIComponent(filteredMep.committees.join(',').toLowerCase()).search(encodeURIComponent(committee.toLowerCase())))
+                ) {
                 filteredMepArray.splice(i, 1);
             }
         }
@@ -72,11 +93,15 @@ module.exports = function(app) {
         if (request.query.country) { var country = request.query.country; }
         if (request.query.group) { var group = request.query.group; }
         if (request.query.party) { var party = request.query.party; }
+        if (request.query.committee) { var committee = request.query.committee; }
 
         for (var i = filteredMepArray.length - 1; i >= 0; i--) {
-            if ((country && encodeURIComponent(filteredMepArray[i].country.toLowerCase()) !== encodeURIComponent(country.toLowerCase())) ||
-                (group && encodeURIComponent(filteredMepArray[i].group.toLowerCase()) !== encodeURIComponent(group.toLowerCase())) ||
-                (party && encodeURIComponent(filteredMepArray[i].party.toLowerCase()) !== encodeURIComponent(party.toLowerCase()))) {
+            var filteredMep = filteredMepArray[i];
+            if ((country && encodeURIComponent(filteredMep.country.toLowerCase()) !== encodeURIComponent(country.toLowerCase())) ||
+                (group && encodeURIComponent(filteredMep.group.toLowerCase()) !== encodeURIComponent(group.toLowerCase())) ||
+                (party && encodeURIComponent(filteredMep.party.toLowerCase()) !== encodeURIComponent(party.toLowerCase())) ||
+                (committee && encodeURIComponent(filteredMep.committees.join(',').toLowerCase()).search(encodeURIComponent(committee.toLowerCase())))
+                ) {
                 filteredMepArray.splice(i, 1);
             }
         }
