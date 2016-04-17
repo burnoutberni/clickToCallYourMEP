@@ -87,9 +87,7 @@ module.exports = function(app) {
                 filteredMepArray.splice(i, 1);
             }
         }
-        response.writeHead(200, {
-            'Content-Type': 'text/json'
-        });
+        response.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
         response.end(JSON.stringify(filteredMepArray[Math.floor(Math.random()*filteredMepArray.length)]));
     });
 
