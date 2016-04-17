@@ -1,0 +1,17 @@
+extends layout.jade
+
+block content
+  #mepbox
+    span#dropdown-arrow ⌄
+    select#meplist
+    #mepinfos
+      div#mepphoto
+      p#mepcountry
+      p#mepparty
+      p#mepgroup
+      p#mepphone
+      form(id='contactForm', role='form')
+        input(type='text', id='phoneNumber', placeholder='Enter your number…')
+        button(type='submit', id='phoneButton') …and call your MEP free of charge!
+
+  p#about This tool runs on <a href="https://github.com/burnoutberni/clickToCallYourMEP" target="_blank">clickToCallYourMEP</a>, made with <3 by <a href="http://nini.su" target="_blank">Bernhard Hayden</a>. Fork it on <a href="https://github.com/burnoutberni/clickToCallYourMEP" target="_blank">Github</a>.

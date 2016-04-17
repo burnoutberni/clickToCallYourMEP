@@ -1,35 +1,9 @@
-doctype html
-html(lang="en")
-  head
-    title Click To Call Your MEP
+extends ./layout.jade
 
-    meta(name='viewport', content='width=device-width, initial-scale=1')
-    link(rel='stylesheet', href='/assets/style.css')
-    link(rel='stylesheet', href='/vendor/intl-phone/css/intlTelInput.css')
-  body
-    .container
-      h1 Click To Call Your MEP
-      p.
-        Call an MEP now! Just enter your phone number and you will receive a call and get connected to an MEP of your choice.
+block content
+  .container
+    h1 Click To Call Your MEP
+    p.
+      Call an MEP now! Just enter your phone number and you will receive a call and get connected to an MEP of your choice.
 
-      #mepbox
-        span#dropdown-arrow ⌄
-        select#meplist
-        #mepinfos
-          div#mepphoto
-          p#mepcountry
-          p#mepparty
-          p#mepgroup
-          p#mepphone
-          form(id='contactForm', role='form')
-            input(type='text', id='phoneNumber', placeholder='Enter your number…')
-            button(type='submit', id='phoneButton') …and call your MEP free of charge!
-
-      p#about Made with <3 by <a href="http://nini.su" target="_blank">Bernhard Hayden</a>. Fork it on <a href="https://github.com/burnoutberni/clickToCallYourMEP" target="_blank">Github</a>.
-
-    // Include page dependencies
-    script(src='/vendor/jquery/jquery-1.11.1.min.js')
-    script(src='/vendor/intl-phone/js/intlTelInput.min.js')
-
-    // Our app's front-end JavaScript logic
-    script(src='/app.js')
+    include ./mepbox.jade

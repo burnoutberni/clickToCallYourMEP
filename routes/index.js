@@ -69,6 +69,10 @@ module.exports = function(app) {
         response.render('index');
     });
 
+    app.get('/iframe', function(request, response) {
+        response.render('mepbox');
+    });
+
     app.get('/mep', function(request, response) {
         var filteredMepArray = mepArray.slice();
 
