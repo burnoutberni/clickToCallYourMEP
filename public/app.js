@@ -7,44 +7,37 @@ function renderInfo(mep) {
   document.getElementById('mepphone').innerHTML = "<p>" + mep.phone + "</p>";
 };
 
-function onLoad() {
-  var meplist;
-
+function get(url, success) {
   var request = new XMLHttpRequest();
-  request.open('GET', '/meps' + window.location.search, true);
-
+  request.open('GET', url, true);
   request.onload = function() {
     if (request.status >= 200 && request.status < 400) {
-      meplist = JSON.parse(request.responseText);
-      meplist.forEach(function(mep) {
-        var newMepItem = document.createElement('option');
-        newMepItem.innerHTML = mep.name;
-        newMepItem.setAttribute('value', mep.id);
-        document.getElementById('meplist').appendChild(newMepItem);
-      });
-      if (window.location.search.toLowerCase().search("random") !== -1) {
-        document.getElementById('meplist').querySelector('option:nth-child(' + Math.floor(Math.random()*meplist.length) + ')').setAttribute("selected", "selected");
-      }
-      renderInfo(meplist.filter(function(e) { return e.id == document.getElementById('meplist').value })[0]);
+      success(request.responseText);
     } else {
       console.error(JSON.stringify(error));
     }
   };
-
   request.onerror = function() {
     console.error(JSON.stringify(error));
   };
-
   request.send();
+}
 
-  /*$.get('/costs', function(data) {
-      costs = data.price;
-      leftPercentage = Math.floor(((20 - data.price) / 20) * 100);
-      $('#costs').html(leftPercentage + " %");
-      $('#costs').css('background', 'linear-gradient(#FFF ' + (100 - leftPercentage) + '%, green 0%, yellow 50%, red 100%)');
-  }).fail(function(error) {
-      console.error(JSON.stringify(error));
-  });*/
+function onLoad() {
+  var meplist;
+  get('/meps' + window.location.search, function(data) {
+    meplist = JSON.parse(data);
+    meplist.forEach(function(mep) {
+      var newMepItem = document.createElement('option');
+      newMepItem.innerHTML = mep.name;
+      newMepItem.setAttribute('value', mep.id);
+      document.getElementById('meplist').appendChild(newMepItem);
+    });
+    if (window.location.search.toLowerCase().search("random") !== -1) {
+      document.getElementById('meplist').querySelector('option:nth-child(' + Math.floor(Math.random()*meplist.length) + ')').setAttribute("selected", "selected");
+    }
+    renderInfo(meplist.filter(function(e) { return e.id == document.getElementById('meplist').value })[0]);
+  });
 
   document.getElementById('phoneNumber').onfocus = function() {
     if (this.value === '') {
