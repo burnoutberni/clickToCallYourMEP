@@ -1,63 +1,80 @@
 function renderInfo(mep) {
-  $('#mepphoto').css("background-image", "none");
-  $('#mepphoto').css("background-image", "url(" + mep.photo || "http://www.europarl.europa.eu/mepphoto/undefined.jpg" + ")");
-  $('#mepname').html("<h2>" + mep.name + "</h2>");
-  $('#mepcountry').html("<p>" + mep.country + "</p>");
-  $('#mepparty').html("<p>" + mep.party + "</p>");
-  $('#mepgroup').html("<p>" + mep.group + "</p>");
-  $('#mepphone').html("<p>" + mep.phone + "</p>");
+  document.getElementById('mepphoto').style.backgroundImage = "none";
+  document.getElementById('mepphoto').style.backgroundImage = "url(" + mep.photo || "http://www.europarl.europa.eu/mepphoto/undefined.jpg" + ")";
+  document.getElementById('mepcountry').innerHTML = "<p>" + mep.country + "</p>";
+  document.getElementById('mepparty').innerHTML = "<p>" + mep.party + "</p>";
+  document.getElementById('mepgroup').innerHTML = "<p>" + mep.group + "</p>";
+  document.getElementById('mepphone').innerHTML = "<p>" + mep.phone + "</p>";
 };
 
-$(function() {
-    var meplist;
-    $.get('/meps' + window.location.search, function(data) {
-        meplist = data;
-        for (var i = 0; i < data.length; i++) {
-          $('#meplist').append('<option value="' + meplist[i].id + '">' + meplist[i].name + '</option>');
-        }
-        if (window.location.search.toLowerCase().search("random") !== -1) {
-          $('#meplist option:nth-child(' + Math.floor(Math.random()*data.length) + ')').attr("selected", "selected");
-        }
-        renderInfo($.grep(meplist, function(e){ return e.id == $('#meplist').val()})[0]);
-    }).fail(function(error) {
-        alert(JSON.stringify(error));
-    });
+function onLoad() {
+  var meplist;
 
-    // Initialize phone number text input plugin
-    $('#phoneNumber').intlTelInput({
-        responsiveDropdown: true,
-        autoFormat: true,
-        utilsScript: '/vendor/intl-phone/libphonenumber/build/utils.js',
-        onlyCountries: ["at", "be", "bg", "hr", "cz", "dk", "ee", "fi", "fr",
-        "de", "gr", "hu", "ie", "it", "lv", "lt", "mt", "nl", "pl", "pt", "ro",
-        "sk", "si", "es", "se", "gb"]
-    });
+  var request = new XMLHttpRequest();
+  request.open('GET', '/meps' + window.location.search, true);
 
-    $('#meplist').on('change', function(e) {
-        var selectedMepId = $(this).val();
-        renderInfo($.grep(meplist, function(e){ return e.id == selectedMepId })[0]);
-    });
+  request.onload = function() {
+    if (request.status >= 200 && request.status < 400) {
+      meplist = JSON.parse(request.responseText);
+      meplist.forEach(function(mep) {
+        var newMepItem = document.createElement('option');
+        newMepItem.innerHTML = mep.name;
+        newMepItem.setAttribute('value', mep.id);
+        document.getElementById('meplist').appendChild(newMepItem);
+      });
+      if (window.location.search.toLowerCase().search("random") !== -1) {
+        document.getElementById('meplist').querySelector('option:nth-child(' + Math.floor(Math.random()*meplist.length) + ')').setAttribute("selected", "selected");
+      }
+      renderInfo(meplist.filter(function(e) { return e.id == document.getElementById('meplist').value })[0]);
+    } else {
+      console.error(JSON.stringify(error));
+    }
+  };
 
-    // Intercept form submission and submit the form with ajax
-    $('#contactForm').on('submit', function(e) {
-        // Prevent submit event from bubbling and automatically submitting the
-        // form
-        e.preventDefault();
+  request.onerror = function() {
+    console.error(JSON.stringify(error));
+  };
 
-        // Call our ajax endpoint on the server to initialize the phone call
-        $.ajax({
-            url: '/call',
-            method: 'POST',
-            dataType: 'json',
-            data: {
-                phoneNumber: $('#phoneNumber').val(),
-                mepId: $('#meplist').val()
-            }
-        }).done(function(data) {
-            // The JSON sent back from the server will contain a success message
-            alert(data.message);
-        }).fail(function(error) {
-            alert(JSON.stringify(error));
-        });
+  request.send();
+
+  /*$.get('/costs', function(data) {
+      costs = data.price;
+      leftPercentage = Math.floor(((20 - data.price) / 20) * 100);
+      $('#costs').html(leftPercentage + " %");
+      $('#costs').css('background', 'linear-gradient(#FFF ' + (100 - leftPercentage) + '%, green 0%, yellow 50%, red 100%)');
+  }).fail(function(error) {
+      console.error(JSON.stringify(error));
+  });*/
+
+  document.getElementById('phoneNumber').onfocus = function() {
+    if (this.value === '') {
+      this.setAttribute('value', '+');
+    }
+  }
+
+  document.getElementById('meplist').onchange = function(e) {
+    var selectedMepId = this.value;
+    renderInfo(meplist.filter(function(e) { return e.id == selectedMepId })[0]);
+  }
+
+  document.getElementById('contactForm').onsubmit = function(e) {
+    e.preventDefault();
+    var request = new XMLHttpRequest();
+    request.open('POST', '/call', true);
+    request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+    request.send({
+      phoneNumber: document.getElementById('phoneNumber').value,
+      mepId: document.getElementById.value
     });
-});
+  };
+};
+
+function ready(fn) {
+  if (document.readyState != 'loading'){
+    fn();
+  } else {
+    document.addEventListener('DOMContentLoaded', fn);
+  }
+};
+
+ready(onLoad);
