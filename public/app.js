@@ -54,11 +54,8 @@ function onLoad() {
     e.preventDefault();
     var request = new XMLHttpRequest();
     request.open('POST', '/call', true);
-    request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-    request.send({
-      phoneNumber: document.getElementById('phoneNumber').value,
-      mepId: document.getElementById.value
-    });
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    request.send('phoneNumber=' + document.getElementById('phoneNumber').value + '&mepId=' + document.getElementById('meplist').value);
   };
 };
 
