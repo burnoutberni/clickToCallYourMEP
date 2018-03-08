@@ -57,7 +57,21 @@ function onLoad() {
     request.open('POST', '/call', true);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
     request.send('phoneNumber=' + document.getElementById('phoneNumber').value + '&mepId=' + document.getElementById('meplist').value);
+
+    document.getElementById('phoneNumber').style.display = "none";
+    document.getElementById('phoneButton').style.display = "none";
+
+    document.getElementById('calledText').style.display = "inline";
+    document.getElementById('calledButton').style.display = "inline";
   };
+
+  document.getElementById('calledButton').onclick = function() {
+    document.getElementById('phoneNumber').style.display = "inline";
+    document.getElementById('phoneButton').style.display = "inline";
+
+    document.getElementById('calledText').style.display = "none";
+    document.getElementById('calledButton').style.display = "none";
+  }
 };
 
 function ready(fn) {
