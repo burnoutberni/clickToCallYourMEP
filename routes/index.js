@@ -20,32 +20,29 @@ var calledMep = {};
 var meps = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public/assets/meps.json'), 'utf8')).meps;
 var mepArray = [];
 if (config.testCall) { mepArray.push(config.testCall); }
-for (var i = 0; i < meps.length; i++) {
-    var mep = meps[i];
-    var mepCommittees = [];
-    for (var j = 0; j < mep.Committees.length; j++) {
-        var committee = mep.Committees[j];
-        var start = new Date(committee.start);
-        var end = new Date(committee.end);
-        var now = new Date();
 
-        if (start < now && end > now) {
-            if (committee.abbr === null) {
-              mepCommittees.push(committee.Organization);
-            } else {
-              mepCommittees.push(committee.abbr);
-            }
-        }
+meps.map((mep) => {
+  let mepCommittees = []
+  mep.Committees.map((committee) => {
+    const start = new Date(committee.start)
+    const end = new Date(committee.end)
+    const now = new Date()
+
+    if (start < now && end > now) {
+      committee.abbr === null
+        ? mepCommittees.push(committee.Organization)
+        : mepCommittees.push(committee.abbr)
     }
-    mepArray.push({ "name": mep.Name.sur + " " + mep.Name.familylc.capitalizeFirstLetters(),
-                    "phone": mep.Addresses[config.currentLocation].Phone,
-                    "id": mepArray.length,
-                    "country": mep.Constituencies[0].country,
-                    "party": mep.Constituencies[0].party,
-                    "group": mep.Groups[0].groupid,
-                    "photo": mep.Photo,
-                    "committees": mepCommittees});
-}
+  })
+  mepArray.push({ "name": mep.Name.sur + " " + mep.Name.familylc.capitalizeFirstLetters(),
+                "phone": mep.Addresses[config.currentLocation].Phone,
+                "id": mepArray.length,
+                "country": mep.Constituencies[0].country,
+                "party": mep.Constituencies[0].party,
+                "group": mep.Groups[0].groupid,
+                "photo": mep.Photo,
+                "committees": mepCommittees});
+})
 
 // Configure application routes
 module.exports = function(app) {
