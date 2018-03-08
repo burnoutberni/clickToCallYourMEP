@@ -22,11 +22,11 @@ var mepArray = [];
 if (config.testCall) { mepArray.push(config.testCall); }
 
 meps.map((mep) => {
-  let mepCommittees = []
+  var mepCommittees = []
   mep.Committees.map((committee) => {
-    const start = new Date(committee.start)
-    const end = new Date(committee.end)
-    const now = new Date()
+    var start = new Date(committee.start)
+    var end = new Date(committee.end)
+    var now = new Date()
 
     if (start < now && end > now) {
       committee.abbr === null
