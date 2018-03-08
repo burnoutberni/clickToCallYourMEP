@@ -146,7 +146,7 @@ module.exports = function(app) {
         // We could use twilio.TwimlResponse, but Jade works too - here's how
         // we would render a TwiML (XML) response using Jade
         var resp = new twilio.TwimlResponse();
-        resp.say({voice: 'alice', language: 'en-UK'}, 'Hello, you will now be connected with the office of MEP ' + calledMep.name + '.');
+        resp.say({voice: 'alice', language: 'en-UK'}, `Hi, thank you for joining the fight for a progressive copyright reform in Europe. We will now connect you with the office of MEP ${calledMep.name} from ${calledMep.country}. Good luck!`);
         resp.dial(calledMep.phone);
 
         response.writeHead(200, {
