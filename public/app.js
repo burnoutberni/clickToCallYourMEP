@@ -51,6 +51,7 @@ function onLoad() {
   }
 
   document.getElementById('contactForm').onsubmit = function(e) {
+    e.currentTarget[0].checkValidity();
     e.preventDefault();
     var request = new XMLHttpRequest();
     request.open('POST', '/call', true);
