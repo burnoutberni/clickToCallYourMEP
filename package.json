@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "node test | faucet",
-    "start": "node app.js"
+    "start": "node app.js",
+    "fetch-meps": "curl -o public/assets/meps.json 'http://parltrack.euwiki.org/meps/?format=json'"
   },
   "keywords": [
     "click",
