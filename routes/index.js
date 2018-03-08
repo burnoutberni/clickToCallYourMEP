@@ -35,7 +35,7 @@ meps.map((mep) => {
     }
   })
   mepArray.push({ "name": mep.Name.sur + " " + mep.Name.familylc.capitalizeFirstLetters(),
-                "phone": mep.Addresses[config.currentLocation].Phone,
+                "phone": mep.Addresses[config.currentLocation] ? mep.Addresses[config.currentLocation].Phone : mep.Addresses.Brussels.Phone,
                 "id": mepArray.length,
                 "country": mep.Constituencies[0].country,
                 "party": mep.Constituencies[0].party,
