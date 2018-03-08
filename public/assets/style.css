@@ -64,11 +64,14 @@ h1, h2, p, form { margin: 5px 0; }
   color: white;
   padding: 10px 16px;
   border-radius: 4px;
+  font-size: 1.5em;
+  line-height: 1em;
   display: none;
 }
 
 #calledText {
   font-weight: bold;
+  margin-right: 0.5em;
   display: none;
 }
 
